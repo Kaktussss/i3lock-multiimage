@@ -22,6 +22,7 @@ import os
 import imghdr
 from PIL import Image
 
+FOLDER = '/home/ginkooo/soft/i3lock-multiimage'
 IMAGE_FOLDER = 'images'
 
 
@@ -91,6 +92,7 @@ def combine_images(images):
 
 
 def main():
+    os.chdir(FOLDER)
     resolutions = get_monitor_resolutions()
     asert_only_pngs()
     images = crop_images_to_resolutions(resolutions)
