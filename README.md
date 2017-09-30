@@ -4,11 +4,13 @@ Uses i3lock to display different image on each monitor
 
 HOW TO USE
 ==========
-`cd ~`
-`git clone https://github.com/ginkooo/i3lock-multiimage`
-`cd i3lock-multiimage`
-`python3 -m pip install --user -r requirements`
-`./lock.py`
+```
+cd ~
+git clone https://github.com/ginkooo/i3lock-multiimage
+cd i3lock-multiimage
+python3 -m pip install --user -r requirements
+./lock.py
+```
 
 CHANGE IMAGES
 =============
