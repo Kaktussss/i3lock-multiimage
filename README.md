@@ -32,7 +32,10 @@ You can change displayed images by replacing pngs in images folder
 REQUIREMENTS
 ============
 Python3+
-Pillow
+
+i3lock (https://github.com/i3/i3lock)
+
+Pillow library for Python3
 
 
 WHAT WORKS
