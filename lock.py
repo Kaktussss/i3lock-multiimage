@@ -1,5 +1,22 @@
 #!/usr/bin/env python3
 
+# Copyright (C) 2017  Piotr Czajka <piotr_czajka@protonmail.com>
+# Author: Piotr Czajka <piotr_czajka@protonmail>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
 import re
 import subprocess
 import os
@@ -25,6 +42,7 @@ def get_monitor_resolutions():
 
 
 def asert_only_pngs():
+    """raises exception if any file in IMAGE_FOLDER is not a png file"""
     for filename in os.listdir(IMAGE_FOLDER):
         ftype = imghdr.what(os.path.join(IMAGE_FOLDER, filename))
         if ftype != 'png':
@@ -32,6 +50,12 @@ def asert_only_pngs():
 
 
 def crop_images_to_resolutions(resolutions):
+    """takes monitor resolutions and resizes images to match themm
+
+    :param resolutions: list of tuples, containing monitor resolutions
+
+    :return ret: list of images
+    """
     images = os.listdir(IMAGE_FOLDER)
     if len(images) != len(resolutions):
         raise Exception('There should be the same number of images,'
@@ -39,17 +63,25 @@ def crop_images_to_resolutions(resolutions):
     ret = []
     for image, resolution in zip(os.listdir(IMAGE_FOLDER), resolutions):
         f = Image.open(os.path.join(IMAGE_FOLDER, image))
-        f.resize(resolution)
+        f = f.resize(resolution)
         ret.append(f)
     return ret
 
 
 def get_fi_res(images):
+    """Determines final image resolution
+
+    :param images: list of images to be combined
+    """
     return tuple([sum([image.size[0] for image in images]),
                  get_monitor_resolutions()[0][1]])
 
 
 def combine_images(images):
+    """Copies images into one final_image
+
+    :param images: list of images to combine
+    """
     final_image_resolution = get_fi_res(images)
     final_image = Image.new(images[0].mode, final_image_resolution)
     sum_ = 0
@@ -61,7 +93,6 @@ def combine_images(images):
 
 def main():
     resolutions = get_monitor_resolutions()
-    print(resolutions)
     asert_only_pngs()
     images = crop_images_to_resolutions(resolutions)
     image = combine_images(images)
