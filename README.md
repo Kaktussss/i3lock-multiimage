@@ -9,8 +9,21 @@ cd ~
 git clone https://github.com/ginkooo/i3lock-multiimage
 cd i3lock-multiimage
 python3 -m pip install --user -r requirements
-./lock.py
 ```
+
+Then change FOLDER variable to absolute path of the script like:
+
+`FOLDER = /home/<username>/i3lock-multiimage`
+
+Then you can do:
+
+`sudo ln -s /home/<username>/i3lock-multiimage/lock.py /usr/local/bin/lock`
+
+After that you should be able to execute script by:
+
+`lock`
+
+I recommend binding key combination to `lock` in your shortcut manager
 
 CHANGE IMAGES
 =============
